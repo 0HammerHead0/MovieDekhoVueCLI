@@ -140,7 +140,8 @@
             show_venue:[],
             selectedRating:null,
             token: localStorage.getItem('access_token'),
-            tot_shows:0
+            tot_shows:0,
+            rawArray:[],
         };
     },
     methods:{
@@ -235,20 +236,23 @@
             },
             };
             try{
-            const showresponse = await fetch(showurl,showrequestOptions);
-            if(showresponse.ok){
-                const data=await showresponse.json()
-                this.show_venue.push(data);
-            }
-            else{
-                throw new Error('show network response was not ok')
-            }
+                const showresponse = await fetch(showurl,showrequestOptions);
+                if(showresponse.ok){
+                    const data = await showresponse.json()
+                    this.show_venue.push(data);
+                }
+                else
+                {
+                    throw new Error('show_venue network response was not ok')
+                }
             }
             catch(error){
-            console.log(error.message);
+                console.log(error.message);
+            }
+            finally{
+                console.log(this.show_venue[0].name)
             }
         }
-        console.log(this.show_venue)
     },
     async rate(index,selectedRating){
         var data={
@@ -271,7 +275,7 @@
             const showresponse = await fetch(showurl,showrequestOptions);
             if(showresponse.ok){
                 const updatedData=await showresponse.json()
-                this.$set(this.shows_ratings_seats, index, updatedData);
+                this.shows_ratings_seats[index]=updatedData;
                 const url="http://127.0.0.1:8080/api/show/"+this.shows_ratings_seats[index].shows_id;
                 const requestOptions= {
                 method:"GET",
@@ -284,7 +288,7 @@
                 try{
                 const response = await fetch(url,requestOptions);
                 const show_new= await response.json();
-                this.$set(this.shows,index,show_new);
+                this.shows[index]=show_new;
                 }
                 catch(error){
                 console.log(error.message)
@@ -302,17 +306,17 @@
     },
     created(){
         this.get_user_info()
-      .then(()=> {
-        this.get_shows()
-        .then(() => {
-          this.get_show_details()
-          .then(()=>{
-            this.get_show_venue()
-            console.log(typeof this.show_venue);
-          })
-
+        .then(()=> {
+            this.get_shows()
+            .then(() => {
+                this.get_show_details()
+                .then(()=>{
+                    this.get_show_venue()
+                    console.log(this.show_venue);
+                    console.log(this.shows);
+                })
+            })
         })
-      })
     },
     beforeRouteEnter(to, from, next) {
       const token = localStorage.getItem('access_token');
@@ -342,7 +346,16 @@
               next({ name: 'login' }); // Redirect to login if there's an error decoding the token
           }
       }
+    },
+    
+};
+const getRawArray = (proxyObj) => {
+  for (const key in proxyObj) {
+    if (key === '[[Target]]') {
+      return proxyObj[key];
     }
+  }
+  return null; // Return null if [[Target]] is not found
 };
 </script>
 
