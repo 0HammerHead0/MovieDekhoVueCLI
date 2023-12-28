@@ -14,9 +14,6 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 " style="font-size:large;">
                             <li class="nav-item">
-                                <router-link class="nav-link" :to="{name:'summary'}">Summary</router-link>
-                            </li>
-                            <li class="nav-item">
                                 <a @click="logout" class="nav-link">Logout</a>
                             </li>
                         </ul>

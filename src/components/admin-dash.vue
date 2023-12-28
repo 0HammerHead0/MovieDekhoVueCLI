@@ -34,7 +34,7 @@
                             </h1>
                             <router-link :to="{ name: 'create_show', params: { venue_id: venue.ID } }" style="flex: 1">
                             <img
-                                src="/static/images/plus.png"
+                                src="../assets/images/plus.png"
                                 class="button"
                                 style="margin-top: 8%; margin-left: 30%; background-color: transparent;"
                             />
@@ -100,7 +100,7 @@
                 <a class="navbar-brand">
                 <router-link to="/create-venue">
                     <!-- <button type="button" class="btn btn-primary btn-circle" style="border-radius: 50%;"> -->
-                    <img src="/static/images/plus.png" class="button" style="margin:auto; margin-bottom:50%;width:40px">
+                    <img src="../assets/images/plus.png" class="button" style="margin:auto; margin-bottom:50%;width:40px">
                     <!-- </button> -->
                 </router-link>
                 </a>

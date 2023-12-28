@@ -55,7 +55,7 @@
                     </div>
                     <a class="btn btn-primary button" style="margin-bottom:0.6% ;width:10%" @click="rate(index, selectedRating)"> Rate </a> <br>
                     <p class="card-text">
-                        <div v-if="show.rating"> Admin rating:- <strong>{{ show.rating }}</strong></div>
+                        <span v-if="show.rating"> Admin rating:- <strong>{{ show.rating }}</strong></span>
                         <span v-if="show.user_rating">All User Rating:- <strong>{{ show.user_rating}}</strong></span><br>
                         <span v-if="shows_ratings_seats[index].rating">Your Current Rating:- <strong>{{ shows_ratings_seats[index].rating}}</strong></span>
                     </p>
@@ -84,7 +84,7 @@
                     </div>
                     <a class="btn btn-primary button" style="margin-bottom:0.6% ;width:10%" @click="rate(index , selectedRating)"> Rate </a> <br>
                     <p class="card-text">
-                        <div v-if="show.rating"> Admin rating:- <strong>{{ show.rating }}</strong></div>
+                        <span v-if="show.rating"> Admin rating:- <strong>{{ show.rating }}</strong></span>
                         <span v-if="show.user_rating">All User Rating:- <strong>{{ show.user_rating}}</strong></span><br>
                         <span v-if="shows_ratings_seats[index].rating">Your Current Rating:- <strong>{{ shows_ratings_seats[index].rating}}</strong></span>
                     </p>
@@ -113,7 +113,7 @@
               </div>
               <a class="btn btn-primary button" style="margin-bottom:0.6% ;width:10%" @click="rate(index , selectedRating)"> Rate </a>
               <p class="card-text">
-                <div v-if="show.rating"> Admin rating:- <strong>{{ show.rating }}</strong></div>
+                <span v-if="show.rating"> Admin rating:- <strong>{{ show.rating }}</strong></span>
                 <span v-if="show.user_rating">All User Rating:- <strong>{{ show.user_rating}}</strong></span><br>
                 <span v-if="shows_ratings_seats[index].rating">Your Current Rating:- <strong>{{ shows_ratings_seats[index].rating}}</strong></span>
               </p>
@@ -345,3 +345,89 @@
     }
 };
 </script>
+
+<style scoped>
+.top-bar{
+    display: block;
+}
+.head{
+    margin-top:6%;
+    margin-bottom: 5%;
+    padding: 0.01%;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    /* flex-wrap: wrap; */
+}
+.title{
+    margin-left:5%;
+    width: fit-content;
+    font-family: 'Poppins', sans-serif;
+    float :left;
+}
+.time{
+    width: fit-content;
+    margin-right: 20%;
+    float:right;
+}
+.seat_select{
+    display: block;
+}
+.button{
+    opacity:1;
+    background-color:#334747 ;border-color: transparent;
+}
+.button:hover{
+    opacity:0.75;
+}
+.card{
+    border-color: rgb(14, 44, 42);
+    border-radius: 24px;
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.card-body{
+    background-color: rgb(14, 44, 42);
+    color: rgb(159, 190, 184);
+    border-radius: 20px;
+    border-color: rgb(14, 44, 42);
+}
+
+
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+</style>

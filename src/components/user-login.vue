@@ -80,35 +80,36 @@ methods: {
     }
     },
     async login(event) {
-    event.preventDefault();
-    const url = 'http://127.0.0.1:8080/api/login';
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-        username: this.username,
-        password: this.pass,
-        }),
-    };
-
-    try {
-        const response = await fetch(url, requestOptions);
-        if (response.ok) {
-        const data = await response.json();
-        const access_token = data.access_token;
-        const role = data.role;
-        localStorage.setItem('access_token', access_token);
-        localStorage.setItem('role', role);
-        this.$router.push({ name: 'user_dash', params: { username: this.username } });
-        } else {
-        this.showErrorMessage = true;
-        setTimeout(() => {
-            this.showErrorMessage = false;
-        }, 1000);
+        event.preventDefault();
+        const url = 'http://127.0.0.1:8080/api/login';
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+            username: this.username,
+            password: this.pass,
+            }),
+        };
+        try {
+            const response = await fetch(url, requestOptions);
+            if (response.ok) {
+                const data = await response.json();
+                const access_token = data.access_token;
+                const role = data.role;
+                localStorage.setItem('access_token', access_token);
+                localStorage.setItem('role', role);
+                this.$router.push({ name: 'user_dash', params: { username: this.username } });
+            } else {
+                this.showErrorMessage = true;
+                setTimeout(() => {
+                    this.showErrorMessage = false;
+                }, 1000);
+            }
         }
-    } catch (error) {
-        console.log(error.message);
-    }
+        catch (error)
+        {
+            console.log(error.message);
+        }
     },
 },
 watch: {
